@@ -13,9 +13,21 @@ public class Task1 {
             synchronized (objectA){
                 System.out.println("ThreadA");
                 synchronized (objectB){
-                    System.out.println("ThreadB");
+                    System.out.println("MonitorB");
                 }
             }
         });
+
+        Thread threadB = new Thread(() -> {
+            synchronized (objectB){
+                System.out.println("ThreadB");
+                synchronized (objectA){
+                    System.out.println("MonitorA");
+                }
+            }
+        });
+
+        threadA.start();
+        threadB.start();
     }
 }
